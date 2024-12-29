@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: docker.io/postgres:12.18
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres_data:/data/postgres"
+      - "./create-db.sql:/docker-entrypoint-initdb.d/create_database.sql"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/data/postgres
+  rabbitmq:
+    image: docker.io/rabbitmq:3.13.3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+volumes:
+  postgres_data:
+    driver: local
+  rabbitmq_data:
+    driver: local

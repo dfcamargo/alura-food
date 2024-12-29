@@ -1,0 +1,6 @@
+CREATE TABLE orders (
+  id UUID NOT NULL,
+  order_date TIMESTAMP NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+)
